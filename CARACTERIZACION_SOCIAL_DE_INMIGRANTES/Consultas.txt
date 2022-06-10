@@ -1,0 +1,43 @@
+POSTGRESQL CONSULTAS
+--------------------------------------------------------------------------------------------------------- #1
+select nac_inm ,count(nac_inm )as Nacionalidad
+from inmigrante
+group by nac_inm
+order by Nacionalidad desc
+--------------------------------------------------------------------------------------------------------- #2
+select fecha_arribo ,count(fecha_arribo )as Fechas_Registradas
+from arribo
+group by fecha_arribo
+order by Fechas_Registradas desc
+
+select fecha_arribo ,count(fecha_arribo )as Fechas_Registradas
+from arribo
+group by fecha_arribo
+order by Fechas_Registradas asc
+--------------------------------------------------------------------------------------------------------- #3
+SELECT nombres_inm || ' ' || apellidos_inm as Nombres_y_Apellidos, fecha_sup, fecha_arribo FROM ficha
+INNER JOIN arribo ON ficha.id_ficha = arribo.id_llegada
+INNER JOIN inmigrante ON ficha.id_inm = inmigrante.id_inm;
+--------------------------------------------------------------------------------------------------------- #4
+--ya que solo habia ingresado 4 datos, decidi ingresar 2 mas para verificar la funcionabilidad de la 4ta consulta
+insert into inmigrante
+	values('5','ZAB000774','Jhon Alex','Chavez Correa','2001-08-17','FRA','2413793179','M','Pintor');
+insert into motivo
+	values('5','Laboral','Contrato','clase media');
+insert into arribo
+	values('5','2021-12-20','Frontera','Guayas','35 dias','2022-01-24');
+insert into ficha
+	values(5,5,5,1,1,1,'5','2022-01-03');
+insert into inmigrante
+	values('6','ZAB000888','Bob Dylan','Cajamarca Segura','2001-08-17','ARG','2411818181','M','Productor');
+insert into motivo
+	values('6','Laboral','Oportunidad','clase alta');
+insert into arribo
+	values('6','2021-12-10','Frontera','Guayas','45 dias','2022-01-24');
+insert into ficha
+	values(6,6,6,1,1,1,'6','2022-01-03');
+	
+SELECT nombres_inm || ' ' || apellidos_inm as Nombres_y_Apellidos, motivo_llegada, nac_inm as Nacionalidad FROM ficha
+INNER JOIN motivo ON ficha.id_ficha = motivo.id__motivo
+INNER JOIN inmigrante ON ficha.id_inm = inmigrante.id_inm
+order by motivo_llegada 
